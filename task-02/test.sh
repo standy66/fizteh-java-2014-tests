@@ -25,7 +25,7 @@ fi
 
 echo -e "testing: get a; get c; exit (passed as arguments)"
 echo -e 'found\nb\nfound\nd' > temp.file;
-exec $exec_string "get a;get c" | exec $diff_string;
+exec $exec_string "get a;get c;" | exec $diff_string;
 if [ $? -ne 0 ]; then
 	echo -e "Test fail\n";
 else
@@ -39,6 +39,47 @@ if [ $? -eq 0 ]; then
 else
 	echo -e "Test OK\n";
 fi
+
+echo -e "testing: put a b c; (passed as arguments)"
+exec $exec_string "put a b c;" &2> /dev/null;
+if [ $? -eq 0 ]; then
+	echo -e "Test fail\n";
+else
+	echo -e "Test OK\n";
+fi
+
+echo -e "testing: get; (passed as arguments)"
+exec $exec_string "get;" &2> /dev/null;
+if [ $? -eq 0 ]; then
+	echo -e "Test fail\n";
+else
+	echo -e "Test OK\n";
+fi
+
+echo -e "testing: get a b; (passed as arguments)"
+exec $exec_string "get a b;" &2> /dev/null;
+if [ $? -eq 0 ]; then
+	echo -e "Test fail\n";
+else
+	echo -e "Test OK\n";
+fi
+
+echo -e "testing: remove; (passed as arguments)"
+exec $exec_string "remove;" &2> /dev/null;
+if [ $? -eq 0 ]; then
+	echo -e "Test fail\n";
+else
+	echo -e "Test OK\n";
+fi
+
+echo -e "testing: remove a b; (passed as arguments)"
+exec $exec_string "remove a b;" &2> /dev/null;
+if [ $? -eq 0 ]; then
+	echo -e "Test fail\n";
+else
+	echo -e "Test OK\n";
+fi
+
 
 rm temp.file
 rm test.dat
